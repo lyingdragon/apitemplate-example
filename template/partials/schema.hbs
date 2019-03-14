@@ -1,0 +1,8 @@
+{{! oas 3.0 schema}}
+{{#if title}}{{title}}{{/if}}
+{{description}}
+{{#if firstItem}}- Schema: {{/if}}{{> schema_entry this}}
+{{#if allOf}}{{#each allOf}}{{> schema_entry this}}{{/each}}{{/if}}
+{{#if oneOf}}One of {{#each allOf}}{{> schema this}}{{/each}}{{/if}}
+{{#if anyOf}}Any of {{#each allOf}}{{> schema this}}{{/each}}{{/if}}
+{{#if not}}Not {{#each not}}{{> schema this}}{{/each}}{{/if}}

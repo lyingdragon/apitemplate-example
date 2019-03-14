@@ -1,0 +1,12 @@
+info:
+  version: 1.0.0
+  title: REST API Reference
+  description: OAS를 흉내낸 자체 API 템플릿을 사용해서 REST API 문서를 만들었습니다.
+  contact:
+    name: Jeongeun Jeon
+    email: jeongeun.jeon@linecorp.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://example.server.mine/api

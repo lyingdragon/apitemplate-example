@@ -1,0 +1,42 @@
+# {{info.title}}
+{{#if info.version}}
+<p class="version">version: {{info.version}}</p>
+{{/if}}
+{{#if servers}}
+<p class="server">Servers:</p>{{#each servers}}
+
+- `{{url}}`
+
+	{{#with variables.scheme}}{{description}}{{#if enum}} ({{enum}}{{#if default}}. Default is {{default}}.{{/if}}){{/if}}{{/with}}{{/each}}
+{{/if}}
+
+{{info.description}}
+{{! paths }}
+{{#each paths}}
+{{#each this}}{{setCurrentPath @../key @key @root}}
+## {{toUpperCase @key}} {{escapeBraces @../key~}} {{#if operationId}} {{addId operationId}}{{/if}}
+{{description}}
+
+{{! parameters }}
+### Request parameters
+{{#if parameters}}
+| Name | Type | Description | Required |
+|----|----|-----------|-----|
+{{#each parameters}}
+| `{{name}}`<br/>({{in}}) | {{schema.type}} {{#if schema.items}} of {{schema.items.type}}{{/if}} | {{description}} | {{#if required}}O{{/if}} |
+{{/each}}{{else}}None{{/if}}
+
+
+### Responses
+{{#if responses}}<table><thead><th>Code</th><th>Description</th></thead><tbody>
+{{#each responses}}{{clearRefComponents @root}}<tr>
+<td>{{@key}}</td>
+<td><p>{{description}}</p>
+{{#with content}}{{#each this}}{{> schema schema firstItem=true}}
+{{#if example}}<p>Example:</p><pre><code>{{{toJSON example}}}</code></pre>{{/if}}{{/each}}{{/with}}
+</td>
+</tr>{{/each}}</tbody></table>{{/if}}
+
+
+{{/each}}{{! of this (=operation)}}
+{{/each}}{{! of path}}

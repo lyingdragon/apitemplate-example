@@ -1,0 +1,4 @@
+{{! oas 3.0 simple schema}}
+{{#if items}}{{type}} of {{> schema_entry items}}
+{{else}}{{#if $ref}}{{> schema (getComponent $ref @root)}}{{/if}}{{type}}{{/if}}
+{{#if properties}}<pre><code>{{{toJSON properties}}}</code></pre>{{/if}}
