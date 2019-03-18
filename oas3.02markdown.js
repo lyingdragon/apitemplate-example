@@ -25,8 +25,15 @@ function init() {
     return str.replace(/([\{\}])/g, '\\$1')
   });
 
-  handlebars.registerHelper("addId", function(str) {
-    return "{#" + str + "}";
+  handlebars.registerHelper("toId", function(str1, str2, str3) {
+    str1 = toLowercaseWithAscii(str1);
+    if( typeof str2 === "string") {
+      str1 = str1 + "-" + toLowercaseWithAscii(str2);
+    }
+    if( typeof str3 === "string" ) {
+      str1 = str1 + "-" + toLowercaseWithAscii(str3);
+    }
+    return str1;
   });
 
   handlebars.registerHelper("parseComponent", function(name, root) {
@@ -54,6 +61,10 @@ function init() {
   handlebars.registerHelper("toJSON", function(obj) {
     return JSON.stringify(obj, null, 3);
   });
+}
+
+function toLowercaseWithAscii(str) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 }
 
 function setVariable(varName, varValue, options) {

@@ -14,7 +14,7 @@
 {{! paths }}
 {{#each paths}}
 {{#each this}}{{setCurrentPath @../key @key @root}}
-## {{toUpperCase @key}} {{escapeBraces @../key~}} {{#if operationId}} {{addId operationId}}{{/if}}
+## {{toUpperCase @key}} {{escapeBraces @../key~}} {{#if operationId}} {#{{toId operationId}} }{{/if}}
 {{description}}
 
 {{! parameters }}

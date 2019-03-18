@@ -2,15 +2,33 @@ summary: 사용자 정보 변경
 path: /user/{user_id}
 method: POST
 description: |-
-  주어진 아이디(user_id)의 사용자 정보를 변경합니다.
+  주어진 아이디(`user_id`)의 사용자 정보를 변경합니다.
 parameters:
   - name: user_id
     in: path
     description: |-
-      조회할 사용자 ID. 사용자 ID는 [사용자 목록](/apis/user-list)에서 확인할 수 있습니다.
+      조회할 사용자 ID. 사용자 ID는 [사용자 목록](/apis/user--user-id-)에서 확인할 수 있습니다.
     required: true
-  - name: user_info
+    type: string
+  - name: user_name
     in: body
     description: |-
-      변경할 사용자 정보입니다. [User Info](/object/user-info)를 참고하십시오.
-    type: object
+      변경할 사용자 이름입니다.
+    type: string
+    required: false
+  - name: image
+    in: body
+    description: |-
+      변경할 사용자의 사진 URL입니다.
+    required: false
+    type: string
+response:
+  common_used: true
+  example:
+    code_block: |2-
+      {
+        "resultCode": "good",
+        "resultString": "No problem"
+      }
+    title: 성공 예제
+    language: json

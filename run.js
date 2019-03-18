@@ -25,6 +25,17 @@ function init() {
     return str.replace(/([\{\}])/g, '\\$1')
   });
 
+  handlebars.registerHelper("toId", function(str1, str2, str3) {
+    str1 = toLowercaseWithAscii(str1);
+    if( typeof str2 === "string") {
+      str1 = str1 + "-" + toLowercaseWithAscii(str2);
+    }
+    if( typeof str3 === "string" ) {
+      str1 = str1 + "-" + toLowercaseWithAscii(str3);
+    }
+    return str1;
+  });
+
   handlebars.registerHelper('ifCond', function(v1, v2, options) {
     if(v1 === v2) {
       return options.fn(this);
@@ -33,6 +44,9 @@ function init() {
   });
 }
 
+function toLowercaseWithAscii(str) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
 var argv = require("minimist")(process.argv.slice(2));
 
 if (argv.t === undefined) {
@@ -67,16 +81,16 @@ fs.readFile(argv.t, function(err, data) {
   source = data.toString();
 
   var doc = {};
-  var paths = [];
+  var apis = [];
   for (var filename of argv._) {
     var template = handlebars.compile(source);
     var one = yaml.safeLoad(fs.readFileSync(filename, "utf8"));
     if (filename.indexOf("index") >= 0)
       doc = one;
     else
-      paths.push(one);
+      apis.push(one);
   }
-  doc = Object.assign({"paths": paths}, doc);
+  doc = Object.assign({"apis": apis}, doc);
 
   var result = template(doc);
 

@@ -10,3 +10,13 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: http://example.server.mine/api
+common_response:
+  - name: resultCode
+    type: string
+    enum:
+    - "good"
+    - "bad"
+    default: "good"
+  - name: resultString
+    type: string
+    description: 상세한 결과 설명이 들어갑니다.
